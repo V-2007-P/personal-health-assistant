@@ -40,7 +40,7 @@ const AIAssistantPage = () => {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 300000);
 
-      const res = await fetch('http://localhost:54321/chat', {
+      const res = await fetch('http://localhost:5001/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt }),

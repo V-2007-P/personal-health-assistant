@@ -31,7 +31,7 @@ const TranslatePage = ({ user, onLoginRequest }) => {
 
     try {
       const prompt = `Translate the following text to ${targetLang}. Reply ONLY with the translated text, nothing else:\n\n"${text}"`;
-      const res = await fetch('http://localhost:54321/chat', {
+      const res = await fetch('http://localhost:5001/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt })
