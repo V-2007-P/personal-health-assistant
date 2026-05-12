@@ -1,0 +1,320 @@
+:root {
+  --bg-sidebar: #0A0E27;
+  --bg-main: linear-gradient(135deg, #f5e3e6 0%, #e8e1f5 50%, #fbdcd6 100%);
+  --glass-white: rgba(255, 255, 255, 0.6);
+  --glass-white-border: rgba(255, 255, 255, 0.8);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  --primary-purple: #8A2BE2;
+  --primary-gradient: linear-gradient(90deg, #9b4dff, #d470ff);
+  --text-main: #2D3142;
+  --text-secondary: #7A7E9A;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 24px;
+  --sidebar-w: 240px;
+  --mobile-nav-h: 70px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Desktop Layout (>1024px) ── */
+.dashboard-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  gap: 16px;
+  padding: 16px;
+}
+
+.right-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.center-and-right {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.center-and-right.full-width {
+  grid-template-columns: 1fr;
+}
+
+/* ── Tablet (768px – 1024px): Icon-rail sidebar ── */
+@media (max-width: 1024px) {
+  :root { --sidebar-w: 72px; }
+
+  .dashboard-container {
+    grid-template-columns: var(--sidebar-w) 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  /* Hide all text, show only icons */
+  .nav-label,
+  .sidebar-brand-text,
+  .system-status,
+  .user-info,
+  .chevron-down,
+  .sos-badge {
+    display: none !important;
+  }
+
+  /* Compact logo area */
+  .sidebar-header {
+    justify-content: center;
+    margin-bottom: 16px;
+    padding: 4px 0 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Tighter nav: icons as square pills */
+  .nav-menu {
+    gap: 6px;
+    align-items: center;
+  }
+
+  .nav-item {
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 14px;
+    align-self: center;
+  }
+
+  /* Active: glowing filled pill — no left bar */
+  .nav-item.active {
+    background: linear-gradient(135deg, rgba(138,43,226,0.9), rgba(224,86,253,0.7));
+    box-shadow: 0 0 16px rgba(138,43,226,0.45);
+  }
+
+  .nav-item.active::before { display: none; }
+
+  /* User avatar centered at bottom */
+  .user-profile {
+    justify-content: center;
+    padding: 6px;
+    background: none;
+    border: none;
+  }
+
+  .avatar {
+    width: 38px;
+    height: 38px;
+  }
+
+  .center-and-right {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .center-and-right.full-width {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Mobile (<768px) ── */
+@media (max-width: 768px) {
+  body { overflow: auto; }
+
+  .dashboard-container {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px calc(var(--mobile-nav-h) + 14px);
+    gap: 10px;
+  }
+
+  /* Hide desktop sidebar entirely on mobile */
+  .sidebar-container { display: none; }
+
+  .right-wrapper {
+    flex: 1;
+    height: auto;
+    overflow: visible;
+    min-height: 0;
+  }
+
+  .center-and-right {
+    grid-template-columns: 1fr;
+    overflow: visible;
+    height: auto;
+    min-height: 0;
+  }
+}
+
+/* ── Glass card utility ── */
+.glass-card {
+  background: var(--glass-white);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-white-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+}
+
+
+
+
+/* ── Dark Mode Theme ── */
+[data-theme="dark"] {
+  --bg-main: linear-gradient(135deg, #060714 0%, #0c0d21 50%, #08091a 100%);
+  --text-main: #E0E0F0;
+  --text-secondary: rgba(255, 255, 255, 0.45);
+}
+
+[data-theme="dark"] body {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* Global Text Overrides for Dark Mode */
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .action-title,
+[data-theme="dark"] .response-p,
+[data-theme="dark"] .ai-response-title,
+[data-theme="dark"] .card-title,
+[data-theme="dark"] .service-name,
+[data-theme="dark"] .location-address,
+[data-theme="dark"] .irp-title,
+[data-theme="dark"] .irp-card-title,
+[data-theme="dark"] .irp-stat-value,
+[data-theme="dark"] .loc-info-value,
+[data-theme="dark"] .translation-textarea,
+[data-theme="dark"] .translation-output,
+[data-theme="dark"] .health-title,
+[data-theme="dark"] .emergency-title,
+[data-theme="dark"] .location-title,
+[data-theme="dark"] .translate-title,
+[data-theme="dark"] .phrase-text,
+[data-theme="dark"] .irp-modal-title,
+[data-theme="dark"] .irp-input,
+[data-theme="dark"] .irp-textarea,
+[data-theme="dark"] .health-input,
+[data-theme="dark"] .ai-input,
+[data-theme="dark"] .health-bubble.user,
+[data-theme="dark"] .health-bubble.ai,
+[data-theme="dark"] .irp-card-desc {
+  color: #FFFFFF !important; /* Pure white for max visibility */
+}
+
+/* Muted / Faint Text Overrides */
+[data-theme="dark"] .hero-subtitle,
+[data-theme="dark"] .action-subtitle,
+[data-theme="dark"] .service-sub,
+[data-theme="dark"] .location-subaddress,
+[data-theme="dark"] .irp-sub,
+[data-theme="dark"] .irp-stat-label,
+[data-theme="dark"] .loc-info-label,
+[data-theme="dark"] .health-sub,
+[data-theme="dark"] .emergency-sub,
+[data-theme="dark"] .location-sub,
+[data-theme="dark"] .translate-sub,
+[data-theme="dark"] .irp-label,
+[data-theme="dark"] .phrases-label,
+[data-theme="dark"] .panel-label,
+[data-theme="dark"] .irp-card-time,
+[data-theme="dark"] .irp-card-location,
+[data-theme="dark"] .location-address-bar span {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Placeholders */
+[data-theme="dark"] ::placeholder,
+[data-theme="dark"] .irp-input::placeholder,
+[data-theme="dark"] .irp-textarea::placeholder,
+[data-theme="dark"] .health-input::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+
+/* UI Elements */
+[data-theme="dark"] .main-content,
+[data-theme="dark"] .ai-response-card,
+[data-theme="dark"] .hero-section,
+[data-theme="dark"] .voice-input-section,
+[data-theme="dark"] .quick-actions .action-card,
+[data-theme="dark"] .location-card,
+[data-theme="dark"] .services-card,
+[data-theme="dark"] .sos-card,
+[data-theme="dark"] .health-page,
+[data-theme="dark"] .emergency-page,
+[data-theme="dark"] .location-page,
+[data-theme="dark"] .translate-page,
+[data-theme="dark"] .irp-page,
+[data-theme="dark"] .irp-card,
+[data-theme="dark"] .irp-stat-card,
+[data-theme="dark"] .location-info-card,
+[data-theme="dark"] .translation-panel,
+[data-theme="dark"] .service-item {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Inputs & Forms */
+[data-theme="dark"] .irp-input,
+[data-theme="dark"] .irp-textarea,
+[data-theme="dark"] .translation-textarea {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .search-bar {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+[data-theme="dark"] .search-bar input { color: #F0F0FF !important; }
+[data-theme="dark"] .search-bar input::placeholder { color: rgba(255, 255, 255, 0.3) !important; }
+
+/* Page Header Sections */
+[data-theme="dark"] .health-header,
+[data-theme="dark"] .emergency-header,
+[data-theme="dark"] .location-header,
+[data-theme="dark"] .translate-header,
+[data-theme="dark"] .irp-header,
+[data-theme="dark"] .symptom-chips-section,
+[data-theme="dark"] .health-input-bar,
+[data-theme="dark"] .irp-modal {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .irp-modal {
+  background: #121421 !important; /* Deep solid color for modals in dark mode */
+}
+
+/* Chat Bubbles */
+[data-theme="dark"] .health-bubble.ai {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #F0F0FF !important;
+}
+
+/* Smooth Transitions */
+*, *::before, *::after {
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.2s ease;
+}
+

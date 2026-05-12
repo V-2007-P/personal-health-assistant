@@ -1,0 +1,136 @@
+.location-page {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.8);
+  overflow: hidden;
+}
+
+.location-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  background: rgba(255,255,255,0.6);
+  flex-shrink: 0;
+}
+.location-title-row { display: flex; align-items: center; gap: 12px; }
+.location-icon-badge {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #007AFF, #34C0FF);
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,122,255,0.3);
+}
+.location-title { font-size: 18px; font-weight: 700; color: #2D3142; }
+.location-sub { font-size: 12px; color: #7A7E9A; margin-top: 2px; }
+
+.location-status-pill {
+  font-size: 12px; font-weight: 700;
+  padding: 6px 14px; border-radius: 20px;
+}
+.location-status-pill.locating { background: rgba(255,149,0,0.1); color: #FF9500; border: 1px solid rgba(255,149,0,0.3); }
+.location-status-pill.found { background: rgba(52,199,89,0.1); color: #34C759; border: 1px solid rgba(52,199,89,0.3); }
+.location-status-pill.denied { background: rgba(255,59,48,0.1); color: #FF3B30; border: 1px solid rgba(255,59,48,0.3); }
+
+.location-map-container {
+  flex: 1;
+  min-height: 260px;
+  overflow: hidden;
+}
+
+.location-map-placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #7A7E9A;
+  font-size: 14px;
+  background: rgba(0,0,0,0.02);
+}
+.loc-pulse-icon {
+  color: #8A2BE2;
+  animation: pulse 1.5s infinite;
+}
+
+.location-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 0 24px;
+  flex-shrink: 0;
+}
+.location-info-card {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: 14px;
+  padding: 12px 16px;
+  text-align: center;
+}
+.loc-info-label { font-size: 11px; font-weight: 600; color: #7A7E9A; text-transform: uppercase; margin-bottom: 4px; }
+.loc-info-value { font-size: 15px; font-weight: 700; color: #2D3142; }
+
+.location-address-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 20px;
+  margin: 0 24px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: 14px;
+  font-size: 12px;
+  color: #2D3142;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+.location-address-bar span { flex: 1; }
+
+.location-actions {
+  display: flex;
+  gap: 10px;
+  padding: 0 24px 20px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.loc-action-btn {
+  flex: 1;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+.loc-action-btn.refresh { background: rgba(0,0,0,0.06); color: #2D3142; border: 1px solid rgba(0,0,0,0.1); }
+.loc-action-btn.copy { background: rgba(88,86,214,0.1); color: #5856D6; border: 1px solid rgba(88,86,214,0.2); }
+.loc-action-btn.share { background: rgba(138,43,226,0.1); color: #8A2BE2; border: 1px solid rgba(138,43,226,0.2); }
+.loc-action-btn.maps { background: linear-gradient(135deg, #007AFF, #34C0FF); color: white; box-shadow: 0 4px 12px rgba(0,122,255,0.25); }
+.loc-action-btn:hover { transform: translateY(-1px); }
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+@media (max-width: 768px) {
+  .location-page { border-radius: 16px; }
+  .location-header { padding: 14px 16px; flex-wrap: wrap; gap: 10px; }
+  .location-map-container { min-height: 200px; }
+  .location-info-grid { padding: 0 16px; }
+  .location-address-bar { margin: 0 16px; }
+  .location-actions { padding: 0 16px 16px; flex-wrap: wrap; }
+  .loc-action-btn { min-width: calc(50% - 6px); }
+}

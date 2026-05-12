@@ -1,0 +1,250 @@
+.emergency-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px;
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.8);
+  position: relative;
+}
+
+.sos-countdown-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  border-radius: 24px;
+}
+.sos-countdown-box {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(255,59,48,0.4);
+}
+.sos-countdown-box h2 { color: #FF3B30; font-size: 20px; font-weight: 800; }
+.sos-countdown-num {
+  font-size: 72px;
+  font-weight: 900;
+  color: #FF3B30;
+  line-height: 1;
+  animation: pulse 1s infinite;
+}
+.sos-cancel-countdown {
+  padding: 10px 28px;
+  background: transparent;
+  border: 2px solid #2D3142;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2D3142;
+  cursor: pointer;
+}
+
+.emergency-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.emergency-title-row { display: flex; align-items: center; gap: 12px; }
+.emergency-icon-badge {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #FF3B30, #FF6B6B);
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255,59,48,0.3);
+}
+.emergency-title { font-size: 18px; font-weight: 700; color: #2D3142; }
+.emergency-sub { font-size: 12px; color: #7A7E9A; margin-top: 2px; }
+
+.emergency-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+.emergency-status-pill.safe { background: rgba(52,199,89,0.1); color: #34C759; border: 1px solid rgba(52,199,89,0.3); }
+.emergency-status-pill.active { background: rgba(255,59,48,0.1); color: #FF3B30; border: 1px solid rgba(255,59,48,0.4); animation: pulse 1.5s infinite; }
+
+/* SOS Button */
+.sos-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+.sos-rings-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.sos-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,59,48,0.2);
+}
+.sos-ring.r1 { width: 200px; height: 200px; }
+.sos-ring.r2 { width: 165px; height: 165px; border-color: rgba(255,59,48,0.35); }
+.sos-ring.r3 { width: 130px; height: 130px; border-color: rgba(255,59,48,0.5); }
+.sos-pulsing { animation: sos-pulse 1.2s ease-out infinite; }
+
+@keyframes sos-pulse {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+
+.sos-big-btn {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF3B30, #FF6B6B);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  gap: 4px;
+  box-shadow: 0 8px 30px rgba(255,59,48,0.5), inset 0 2px 8px rgba(255,255,255,0.3);
+  z-index: 2;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+.sos-big-btn span { font-size: 22px; font-weight: 900; letter-spacing: 2px; }
+.sos-big-btn small { font-size: 9px; opacity: 0.8; font-weight: 500; }
+.sos-big-btn.sos-active {
+  box-shadow: 0 0 0 20px rgba(255,59,48,0.15), 0 8px 30px rgba(255,59,48,0.6);
+  animation: pulse-glow 1s infinite alternate;
+}
+@keyframes pulse-glow {
+  from { box-shadow: 0 0 20px rgba(255,59,48,0.4); }
+  to   { box-shadow: 0 0 50px rgba(255,59,48,0.8); }
+}
+
+/* Location Bar */
+.emergency-location-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: #2D3142;
+  flex-shrink: 0;
+}
+.emergency-location-bar span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.share-loc-btn {
+  background: rgba(138,43,226,0.1);
+  color: #8A2BE2;
+  border: 1px solid rgba(138,43,226,0.2);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Emergency Contacts Grid */
+.emergency-contacts-section { flex-shrink: 0; }
+.emergency-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7A7E9A;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.emergency-contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.emergency-contact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  background: rgba(255,255,255,0.7);
+  border: 1.5px solid var(--contact-color, #eee);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.emergency-contact-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); background: white; }
+.contact-emoji { font-size: 24px; }
+.contact-name { font-size: 11px; font-weight: 700; color: #2D3142; text-align: center; }
+.contact-number { font-size: 14px; font-weight: 800; }
+.contact-call-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: #7A7E9A;
+  margin-top: 2px;
+}
+
+/* Action Row */
+.emergency-actions-row {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.emergency-action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+.emergency-action-btn.share { background: rgba(138,43,226,0.1); color: #8A2BE2; border: 1.5px solid rgba(138,43,226,0.2); }
+.emergency-action-btn.call { background: linear-gradient(135deg, #FF3B30, #FF6B6B); color: white; box-shadow: 0 4px 15px rgba(255,59,48,0.3); }
+.emergency-action-btn:hover { transform: translateY(-1px); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@media (max-width: 768px) {
+  .emergency-page { padding: 16px; gap: 12px; border-radius: 16px; }
+  .emergency-contacts-grid { grid-template-columns: repeat(2, 1fr); }
+  .emergency-actions-row { flex-direction: column; gap: 10px; }
+  .sos-rings-container { width: 160px; height: 160px; }
+  .sos-big-btn { width: 90px; height: 90px; }
+  .sos-ring.r1 { width: 160px; height: 160px; }
+  .sos-ring.r2 { width: 130px; height: 130px; }
+  .sos-ring.r3 { width: 100px; height: 100px; }
+}

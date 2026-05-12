@@ -1,0 +1,463 @@
+/* ──────────────────────────────────────────
+   Sidebar Container
+────────────────────────────────────────── */
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 14px;
+  background: linear-gradient(170deg, #0A0E27 0%, #0D1333 40%, #0F1A2E 75%, #0A1628 100%);
+  border-radius: 24px;
+  color: #fff;
+  box-shadow: 4px 0 40px rgba(0, 0, 0, 0.35), inset 1px 0 0 rgba(255,255,255,0.04);
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle ambient glow in top-right corner */
+.sidebar-container::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Subtle ambient glow in bottom-left corner */
+.sidebar-container::after {
+  content: '';
+  position: absolute;
+  bottom: 40px;
+  left: -30px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(224, 86, 253, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ──────────────────────────────────────────
+   Header / Branding
+────────────────────────────────────────── */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding: 6px 8px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.logo-shield {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #a055ea, #fc5c65);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 0 20px rgba(160, 85, 234, 0.5), 0 4px 10px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #fff 30%, #d89fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-subtitle {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* ──────────────────────────────────────────
+   Navigation
+────────────────────────────────────────── */
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  letter-spacing: 0.1px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.85);
+  transform: translateX(2px);
+}
+
+.nav-item.active {
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.85), rgba(224, 86, 253, 0.7));
+  color: #fff;
+  font-weight: 700;
+  box-shadow:
+    0 4px 20px rgba(138, 43, 226, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateX(0);
+}
+
+/* Active left accent bar */
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 20%;
+  height: 60%;
+  width: 3px;
+  background: linear-gradient(180deg, #a055ea, #E056FD);
+  border-radius: 0 3px 3px 0;
+  box-shadow: 0 0 8px rgba(224, 86, 253, 0.6);
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sos-badge {
+  background: linear-gradient(135deg, #FF3B30, #FF6B6B);
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 8px;
+  margin-left: auto;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(255, 59, 48, 0.45);
+  animation: sos-pulse 2s infinite;
+}
+
+@keyframes sos-pulse {
+  0%, 100% { box-shadow: 0 2px 8px rgba(255, 59, 48, 0.4); }
+  50%       { box-shadow: 0 2px 16px rgba(255, 59, 48, 0.8); }
+}
+
+/* ──────────────────────────────────────────
+   System Status Card
+────────────────────────────────────────── */
+.system-status {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.status-header {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: #34C759;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(52, 199, 89, 0.7);
+  animation: dot-blink 2s infinite;
+}
+
+@keyframes dot-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.shield-graphic {
+  width: 100%;
+  height: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.shield-rings {
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  border: 1px solid rgba(138, 43, 226, 0.35);
+  border-radius: 50%;
+  transform: rotateX(60deg);
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+}
+
+.shield-icon-center {
+  color: #E056FD;
+  filter: drop-shadow(0 0 12px rgba(224, 86, 253, 0.7));
+  z-index: 2;
+}
+
+.status-details {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.val-purple {
+  color: #d09bff;
+  font-weight: 700;
+}
+
+.val-green {
+  color: #34C759;
+  font-weight: 700;
+}
+
+/* ──────────────────────────────────────────
+   User Profile
+────────────────────────────────────────── */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.user-profile:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(138, 43, 226, 0.5);
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.premium-badge, .guest-badge {
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+
+.premium-badge {
+  background: linear-gradient(90deg, #8A2BE2, #E056FD);
+}
+
+.guest-badge {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.chevron-down {
+  color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+/* ── Mobile Bottom Navigation Bar ── */
+.mobile-bottom-nav {
+  display: none; /* hidden on desktop/tablet */
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(170deg, #0A0E27, #0D1333);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 8px 4px env(safe-area-inset-bottom, 8px);
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .mobile-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px 2px;
+    border-radius: 14px;
+    transition: all 0.2s ease;
+    color: rgba(255, 255, 255, 0.4);
+    position: relative;
+  }
+
+  .mobile-nav-item.active {
+    color: #E056FD;
+  }
+
+  .mobile-nav-item.active .mobile-nav-icon-wrap {
+    background: rgba(224, 86, 253, 0.15);
+    box-shadow: 0 0 16px rgba(224, 86, 253, 0.25);
+  }
+
+  .mobile-nav-item.has-sos.active {
+    color: #FF3B30;
+  }
+
+  .mobile-nav-item.has-sos.active .mobile-nav-icon-wrap {
+    background: rgba(255, 59, 48, 0.15);
+    box-shadow: 0 0 16px rgba(255, 59, 48, 0.3);
+  }
+
+  .mobile-nav-icon-wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .mobile-sos-dot {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FF3B30;
+    box-shadow: 0 0 6px rgba(255, 59, 48, 0.8);
+    animation: sos-pulse 2s infinite;
+  }
+
+  .mobile-nav-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* ── Tablet Collapsed Icon Rail ── */
+@media (max-width: 1024px) {
+  .sidebar-container {
+    padding: 16px 8px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  /* Stack: logo, then all icons together, then avatar at bottom */
+  .sidebar-container > div:first-child {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+  }
+
+  .sidebar-container > div:last-child {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Tooltips on hover for collapsed icons */
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-item:hover::after {
+    content: attr(data-label);
+    position: absolute;
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(13,19,51,0.95);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 10px;
+    white-space: nowrap;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    pointer-events: none;
+    z-index: 999;
+  }
+}

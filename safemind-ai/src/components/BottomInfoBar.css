@@ -1,0 +1,44 @@
+.bottom-info-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.info-icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #007AFF;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.info-text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2D3142;
+}
+
+.info-subtitle {
+  font-size: 11px;
+  color: #7A7E9A;
+}
