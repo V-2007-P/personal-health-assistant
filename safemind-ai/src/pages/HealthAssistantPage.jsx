@@ -42,7 +42,7 @@ const HealthAssistantPage = ({ user, onLoginRequest }) => {
     setIsLoading(true);
 
     try {
-      const res = await fetch('http://localhost:5001/chat', {
+      const res = await fetch('http://localhost:54321/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: systemPrompt })

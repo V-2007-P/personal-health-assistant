@@ -83,7 +83,7 @@ const MainContent = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
       // 2-minute timeout for Gemma 3 locally
       const timeoutId = setTimeout(() => controller.abort(), 120000); 
       
-      const res = await fetch('http://localhost:5001/chat', {
+      const res = await fetch('http://localhost:54321/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: isRetry ? userMessage : prompt }),
