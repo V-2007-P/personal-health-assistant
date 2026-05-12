@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Backend server for SafeMind AI dashboard to connect with Ollama Gemma 3",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"

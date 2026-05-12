@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { MapPin, Shield, Flame, AlertTriangle, CheckCircle2, Cross } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { AlertTriangle, CheckCircle2, Cross } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -22,7 +22,7 @@ const MapUpdater = ({ center }) => {
   return null;
 };
 
-const RightPanel = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
+const RightPanel = ({ isEmergency, setIsEmergency }) => {
   const [showModal, setShowModal] = useState(false);
   const [countdown, setCountdown] = useState(5);
   
@@ -47,7 +47,7 @@ const RightPanel = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
           const main = data.address.road || data.address.suburb || data.address.city || 'Current Location';
           const sub = `${data.address.state || ''}, ${data.address.country || ''} - ${lat.toFixed(4)}° N, ${lng.toFixed(4)}° E`;
           setAddress({ main, sub });
-        } catch (e) {
+        } catch {
           setAddress({ main: 'Location Found', sub: `${lat.toFixed(4)}° N, ${lng.toFixed(4)}° E` });
         }
 
@@ -84,18 +84,20 @@ const RightPanel = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
           }).sort((a, b) => a.dist - b.dist).slice(0, 3);
 
           setHospitals(parsedHospitals);
-        } catch (e) {
-          console.error("Failed to fetch hospitals", e);
+        } catch {
+          console.error("Failed to fetch hospitals");
         } finally {
           setIsLocating(false);
         }
-      }, (err) => {
+      }, () => {
         setAddress({ main: 'Location Denied', sub: 'Please enable location permissions in your browser' });
         setIsLocating(false);
       });
     } else {
-      setAddress({ main: 'Unsupported Browser', sub: 'Geolocation is not supported' });
-      setIsLocating(false);
+      setTimeout(() => {
+        setAddress({ main: 'Unsupported Browser', sub: 'Geolocation is not supported' });
+        setIsLocating(false);
+      }, 0);
     }
   }, []);
 
@@ -105,7 +107,7 @@ const RightPanel = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
       timer = setTimeout(() => setCountdown(countdown - 1), 1000);
     } else if (showModal && countdown === 0) {
       setIsEmergency(true);
-      setShowModal(false);
+      if (showModal) setTimeout(() => setShowModal(false), 0);
     }
     return () => clearTimeout(timer);
   }, [showModal, countdown, setIsEmergency]);

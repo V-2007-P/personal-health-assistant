@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Bot, Send, Mic, Trash2, User } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './AIAssistantPage.css';

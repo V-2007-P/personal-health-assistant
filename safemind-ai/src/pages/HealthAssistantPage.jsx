@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { HeartPulse, Send, Bot, User, Stethoscope, AlertTriangle } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { HeartPulse, Send, User, Stethoscope, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './HealthAssistantPage.css';
 

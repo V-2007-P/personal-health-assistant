@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Shield, Mail, Lock, User, ArrowRight, AlertCircle, X, Eye, EyeOff, Fingerprint, Zap, Activity, Globe, Cpu, ShieldCheck } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Mail, Lock, User, ArrowRight, X, Eye, EyeOff, Fingerprint, Zap, Activity, Globe, Cpu, ShieldCheck } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './AuthPage.css';
 
@@ -93,10 +93,10 @@ const AuthPage = ({ onLogin, onClose, isModal }) => {
         {/* Particle Field */}
         {[...Array(20)].map((_, i) => (
           <div key={i} className="auth-particle" style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 8}s`,
-            animationDuration: `${4 + Math.random() * 6}s`
+            left: `${(i * 7.7) % 100}%`,
+            top: `${(i * 13.3) % 100}%`,
+            animationDelay: `${(i * 0.4) % 8}s`,
+            animationDuration: `${4 + (i * 0.3) % 6}s`
           }} />
         ))}
       </div>

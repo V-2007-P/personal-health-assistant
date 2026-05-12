@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Mic, Send, AlertTriangle, Activity, MapPin, Languages, CheckCircle2, Shield, ArrowRight, Bot, Phone, Navigation, MoreHorizontal, Cpu, HeartPulse } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './MainContent.css';
@@ -8,7 +8,7 @@ const TypingText = ({ text }) => {
   const [displayedText, setDisplayedText] = useState('');
   
   useEffect(() => {
-    setDisplayedText('');
+    setTimeout(() => setDisplayedText(''), 0);
     let i = 0;
     const timer = setInterval(() => {
       setDisplayedText((prev) => prev + text.charAt(i));
@@ -50,21 +50,23 @@ const MainContent = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
 
   // Handle simulated emergency update
   useEffect(() => {
-    if (isEmergency) {
-      setResponse({
-        title: "CRITICAL ALERT",
-        text: "SOS HAS BEEN ACTIVATED. Emergency protocol initiated.",
-        bullets: [
-          "Broadcasting live location to emergency contacts.",
-          "Dispatching local police and ambulance services.",
-          "Recording audio and video for security logs.",
-          "Please stay on the line or remain hidden if in danger."
-        ],
-        prompt: "Authorities have been notified and are en route.",
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      });
+    if (isEmergency && response.title !== "CRITICAL ALERT") {
+      setTimeout(() => {
+        setResponse({
+          title: "CRITICAL ALERT",
+          text: "SOS HAS BEEN ACTIVATED. Emergency protocol initiated.",
+          bullets: [
+            "Broadcasting live location to emergency contacts.",
+            "Dispatching local police and ambulance services.",
+            "Recording audio and video for security logs.",
+            "Please stay on the line or remain hidden if in danger."
+          ],
+          prompt: "Authorities have been notified and are en route.",
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+      }, 0);
     }
-  }, [isEmergency]);
+  }, [isEmergency, response.title]);
 
   const sendPromptToBackend = async (prompt, isRetry = false) => {
     if (!prompt.trim()) return;
@@ -101,7 +103,7 @@ const MainContent = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
       // Split Gemma's response into paragraphs/bullets for display
       const lines = aiText.split('\n').filter(l => l.trim());
       const mainText = lines[0] || aiText;
-      const bulletLines = lines.slice(1, 5).map(l => l.replace(/^[\-\*•]\s*/, '').replace(/^\d+\.\s*/, ''));
+      const bulletLines = lines.slice(1, 5).map(l => l.replace(/^[-*•]\s*/, '').replace(/^\d+\.\s*/, ''));
       
       setResponse({
         title: "AI Response",
@@ -185,7 +187,7 @@ const MainContent = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
         <div className="waveform">
           {[...Array(20)].map((_, i) => (
             <div key={i} className="wave-bar" style={{ 
-              animation: (isLoading || inputValue) ? `waveform ${0.5 + Math.random()}s ease-in-out infinite alternate` : 'none',
+              animation: (isLoading || inputValue) ? `waveform ${0.5 + (i * 0.13) % 1}s ease-in-out infinite alternate` : 'none',
               background: isEmergency ? '#FF3B30' : undefined
             }}></div>
           ))}

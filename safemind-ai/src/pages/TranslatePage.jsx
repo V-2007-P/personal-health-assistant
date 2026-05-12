@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Languages, Send, ArrowRight, Globe } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './TranslatePage.css';

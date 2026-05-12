@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import TopNavbar from './components/TopNavbar';
 import MainContent from './components/MainContent';
@@ -13,22 +13,22 @@ import AuthPage from './pages/AuthPage';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    try {
+      const savedUser = localStorage.getItem('safemind_user');
+      if (savedUser && savedUser !== 'undefined') {
+        return JSON.parse(savedUser);
+      }
+    } catch {
+      localStorage.removeItem('safemind_user');
+    }
+    return null;
+  });
+
   const [activeNav, setActiveNav] = useState('Dashboard');
   const [isEmergency, setIsEmergency] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-
-  useEffect(() => {
-    try {
-      const savedUser = localStorage.getItem('safemind_user');
-      if (savedUser && savedUser !== 'undefined') {
-        setUser(JSON.parse(savedUser));
-      }
-    } catch (e) {
-      localStorage.removeItem('safemind_user');
-    }
-  }, []);
 
   const handleLogin = (userData) => {
     setUser(userData);

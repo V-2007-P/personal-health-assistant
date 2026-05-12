@@ -1,4 +1,4 @@
-import React from 'react';
+import { } from 'react';
 import '../index.css';
 
 const GlassCard = ({ children, className = '', dark = false, style = {} }) => {

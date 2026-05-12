@@ -6,9 +6,9 @@
 // Gemma 3 AI model running via Ollama.
 // ==========================================
 
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
+import express from 'express';
+import cors from 'cors';
+import axios from 'axios';
 
 // Initialize the Express application
 const app = express();

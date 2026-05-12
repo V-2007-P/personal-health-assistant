@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { MapPin, Navigation, RefreshCw, Share2, Copy } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useMap } from 'react-leaflet';
@@ -18,7 +18,7 @@ import FacilityLock from '../components/FacilityLock';
 
 const MapRecenter = ({ center }) => {
   const map = useMap();
-  useEffect(() => { map.flyTo(center, 15, { animate: true }); }, [center]);
+  useEffect(() => { map.flyTo(center, 15, { animate: true }); }, [center, map]);
   return null;
 };
 
@@ -47,7 +47,9 @@ const LocationTrackerPage = ({ user, onLoginRequest }) => {
     { enableHighAccuracy: true });
   };
 
-  useEffect(() => { fetchLocation(); }, []);
+  useEffect(() => {
+    setTimeout(fetchLocation, 0);
+  }, []);
 
   const copyCoords = () => {
     if (!location) return;

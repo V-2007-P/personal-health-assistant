@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { AlertTriangle, Phone, MapPin, Radio, CheckCircle2, XCircle, Siren } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { AlertTriangle, Phone, MapPin, Radio, CheckCircle2, Siren } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './EmergencyPage.css';
 
@@ -32,7 +32,7 @@ const EmergencyPage = ({ isEmergency, setIsEmergency, user, onLoginRequest }) =>
   }, []);
 
   const callNumber = (number, name) => {
-    window.location.href = `tel:${number}`;
+    window.location.assign(`tel:${number}`);
     toast.success(`Calling ${name} (${number})...`, { duration: 3000 });
   };
 
