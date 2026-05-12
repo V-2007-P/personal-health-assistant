@@ -77,13 +77,23 @@ app.post('/chat', async (req, res) => {
 
 User: ${prompt}`;
 
-    const response = await axios.post(OLLAMA_URL, {
-      model: 'gemma3',
-      prompt: concisePrompt,
-      stream: false // We want the full response at once, not streamed
-    });
+    let response;
+    try {
+      response = await axios.post(OLLAMA_URL, {
+        model: 'gemma3:latest',
+        prompt: concisePrompt,
+        stream: false
+      }, {
+        timeout: 45000 // 45-second timeout for a "quick" response
+      });
+      console.log('✅ AI Response generated.');
+    } catch (error) {
+      console.error('⚠️ Ollama timeout or error. Using fallback.');
+      return res.json({ 
+        reply: "System is processing heavy data. Please try again in a moment. (Ollama/Gemma-3 is currently loading)" 
+      });
+    }
 
-    // Extract the text response from Ollama's data
     const aiResponseText = response.data.response;
 
     console.log('✅ Successfully generated AI response.');

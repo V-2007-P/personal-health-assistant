@@ -42,11 +42,16 @@ const HealthAssistantPage = ({ user, onLoginRequest }) => {
     setIsLoading(true);
 
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 300000);
+
       const res = await fetch('http://localhost:54321/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: systemPrompt })
+        body: JSON.stringify({ prompt: systemPrompt }),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
       const data = await res.json();
       setMessages(prev => [...prev, {
         id: Date.now() + 1, role: 'ai', text: data.reply || 'No response.',
