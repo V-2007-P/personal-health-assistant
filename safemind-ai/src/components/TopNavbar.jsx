@@ -2,7 +2,7 @@ import { } from 'react';
 import { Search, Sun, Moon, Bell } from 'lucide-react';
 import './TopNavbar.css';
 
-const TopNavbar = ({ isDark, toggleTheme, user, onLoginRequest }) => {
+const TopNavbar = ({ isDark, toggleTheme, user, onLoginRequest, onDummyLogin }) => {
   return (
     <div className="top-nav">
       <div className="search-bar">
@@ -11,8 +11,8 @@ const TopNavbar = ({ isDark, toggleTheme, user, onLoginRequest }) => {
       </div>
       <div className="nav-actions">
         {!user && (
-          <button className="nav-login-btn" onClick={onLoginRequest}>
-            Login
+          <button className="nav-login-btn" onClick={onDummyLogin}>
+            Dummy Login
           </button>
         )}
         <button

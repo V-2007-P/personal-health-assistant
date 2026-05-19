@@ -88,7 +88,21 @@ function App() {
       />
 
       <div className="right-wrapper">
-        <TopNavbar isDark={isDark} toggleTheme={toggleTheme} user={user} onLoginRequest={() => setShowLoginModal(true)} />
+        <TopNavbar 
+          isDark={isDark} 
+          toggleTheme={toggleTheme} 
+          user={user} 
+          onLoginRequest={() => setShowLoginModal(true)} 
+          onDummyLogin={() => {
+            handleLogin({ name: 'Aditya (Demo)', email: 'demo@safemind.ai' });
+            import('react-hot-toast').then(({ default: toast }) => {
+              toast.success('🛡️ Dummy Authentication successful.', {
+                style: { background: '#1a1a2e', color: '#fff', border: '1px solid rgba(138,43,226,0.3)' },
+                duration: 3000
+              });
+            });
+          }}
+        />
         <div className={`center-and-right ${!showRightPanel ? 'full-width' : ''}`}>
           {renderMainContent()}
           {showRightPanel && <RightPanel isEmergency={isEmergency} setIsEmergency={setIsEmergency} user={user} onLoginRequest={() => setShowLoginModal(true)} />}
