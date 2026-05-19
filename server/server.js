@@ -87,8 +87,8 @@ app.post('/chat', async (req, res) => {
       prompt: prompt,
       stream: false
     }, {
-      // Set a generous timeout (Gemma can take a while on first run)
-      timeout: 120000 // 2 minutes
+      // Increased timeout to 5 minutes for slower local machines/first runs
+      timeout: 300000 
     });
 
     // Step 4: Extract the AI's response text
@@ -110,6 +110,15 @@ app.post('/chat', async (req, res) => {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('❌ Error occurred:');
 
+    // Check for timeout (very common with local LLMs)
+    if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
+      console.log('   Request timed out (local model taking too long).');
+      return res.status(504).json({
+        error: 'AI model took too long to respond. This is common on first run or slower hardware.',
+        fix: 'Please try again in a moment.'
+      });
+    }
+
     // Check if Ollama is not running
     if (error.code === 'ECONNREFUSED') {
       console.log('   Ollama is not running!');
@@ -127,14 +136,6 @@ app.post('/chat', async (req, res) => {
       return res.status(404).json({
         error: `Model "${AI_MODEL}" is not installed.`,
         fix: `Run "ollama pull ${AI_MODEL}" in your terminal.`
-      });
-    }
-
-    // Check for timeout
-    if (error.code === 'ECONNABORTED') {
-      console.log('   Request timed out.');
-      return res.status(504).json({
-        error: 'AI model took too long to respond. Please try again.'
       });
     }
 

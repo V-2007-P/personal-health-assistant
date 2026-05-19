@@ -53,12 +53,24 @@ const HealthAssistantPage = ({ user, onLoginRequest }) => {
       });
       clearTimeout(timeoutId);
       const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || "Medical AI is currently unavailable.");
+      }
+
       setMessages(prev => [...prev, {
         id: Date.now() + 1, role: 'ai', text: data.reply || 'No response.',
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
-    } catch {
-      toast.error('Failed to get medical guidance. Check your connection.');
+    } catch (err) {
+      let errorMessage = 'Failed to get medical guidance. Check your connection.';
+      if (err.name === 'AbortError' || err.message.includes('too long')) {
+        errorMessage = 'Medical AI took too long to respond. Please try again.';
+      } else {
+        errorMessage = err.message;
+      }
+      toast.error(errorMessage, { duration: 5000 });
+      console.error('Health AI Error:', err);
     } finally {
       setIsLoading(false);
       setTimeout(() => inputRef.current?.focus(), 100);

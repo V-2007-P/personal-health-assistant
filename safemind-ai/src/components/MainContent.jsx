@@ -98,6 +98,7 @@ const MainContent = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
       }
       
       const data = await res.json();
+
       const aiText = data.reply || "No response received.";
       
       // Split Gemma's response into paragraphs/bullets for display
@@ -113,10 +114,19 @@ const MainContent = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       });
     } catch (error) {
-      const errorMessage = error.name === 'AbortError' ? 'Request timed out. The AI model is taking too long to respond.' : (error.message || 'Failed to connect to AI server.');
+      let errorMessage = 'Failed to connect to AI server.';
+      
+      if (error.name === 'AbortError') {
+        errorMessage = 'Request timed out. The local AI model is taking a while to wake up.';
+      } else if (error.message.includes('too long')) {
+        errorMessage = 'The AI model is busy or taking too long. Please try again in a few seconds.';
+      } else {
+        errorMessage = error.message;
+      }
+
       setErrorState(errorMessage);
-      toast.error(errorMessage);
-      console.error(error);
+      toast.error(errorMessage, { duration: 5000 });
+      console.error('AI Fetch Error:', error);
     } finally {
       setIsLoading(false);
     }
