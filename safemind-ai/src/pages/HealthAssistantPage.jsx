@@ -31,7 +31,7 @@ const HealthAssistantPage = ({ user, onLoginRequest }) => {
     const prompt = (overridePrompt || inputValue).trim();
     if (!prompt || isLoading) return;
 
-    const systemPrompt = `You are a compassionate medical assistant. The user reports: "${prompt}". Give concise, clear first-aid advice in 3 bullet points. End with whether they should seek urgent care. Never diagnose.`;
+    const systemPrompt = `You are a medical assistant. The user says: "${prompt}". Reply with ONLY 2-3 extremely brief bullet points for first-aid. Do NOT include any greetings or extra text. End with a 1-sentence advice on whether to seek urgent care.`;
 
     const userMsg = {
       id: Date.now(), role: 'user', text: prompt,
