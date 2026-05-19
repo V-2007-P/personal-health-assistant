@@ -197,12 +197,8 @@ Keep it very brief.`;
         </div>
       </div>
 
-      {/* === All Interactive Sections — Gated for guests === */}
-      <div style={{ position: 'relative' }}>
-        {!user && <FacilityLock onLoginRequest={onLoginRequest} featureName="SafeMind AI Features" />}
-
-        {/* Voice Input Section */}
-        <div className="voice-input-section" style={isEmergency ? { borderColor: 'rgba(255,59,48,0.5)' } : {}}>
+      {/* Voice Input Section */}
+      <div className="voice-input-section" style={isEmergency ? { borderColor: 'rgba(255,59,48,0.5)' } : {}}>
           <div className="mic-btn" style={isEmergency ? { background: 'linear-gradient(135deg, #FF3B30, #ff6b6b)' } : {}}>
             <Mic size={20} />
           </div>
@@ -220,11 +216,18 @@ Keep it very brief.`;
             className="input-placeholder" 
             placeholder={isLoading ? "AI is processing..." : "Type your problem or speak..."}
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && !isLoading && handleSend()}
-            disabled={isLoading || !user}
+            onChange={(e) => {
+              if (!user) { onLoginRequest(); return; }
+              setInputValue(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (!user) { e.preventDefault(); onLoginRequest(); return; }
+              if (e.key === 'Enter' && !isLoading) handleSend();
+            }}
+            onClick={() => { if (!user) onLoginRequest(); }}
+            disabled={isLoading && !!user}
           />
-          <div className="send-btn" onClick={!isLoading ? handleSend : undefined} style={{ background: isEmergency ? '#FF3B30' : (isLoading ? '#A0A5C0' : undefined), cursor: isLoading ? 'not-allowed' : 'pointer' }}>
+          <div className="send-btn" onClick={() => { if (!user) { onLoginRequest(); return; } if (!isLoading) handleSend(); }} style={{ background: isEmergency ? '#FF3B30' : (isLoading ? '#A0A5C0' : undefined), cursor: isLoading ? 'not-allowed' : 'pointer' }}>
             <Send size={18} />
           </div>
         </div>
@@ -350,7 +353,6 @@ Keep it very brief.`;
             <div className="shield-platform" style={{ width: '80px', height: '26px', bottom: '6px', borderColor: isEmergency ? 'rgba(255,59,48,0.3)' : undefined }}></div>
             <Shield size={80} className="floating-shield" strokeWidth={1} style={isEmergency ? {color: '#FF3B30', filter: 'drop-shadow(0 0 15px rgba(255,59,48,0.5))'} : {}} />
           </div>
-        </div>
         </div>
       </div>
       <div ref={responseEndRef} />
