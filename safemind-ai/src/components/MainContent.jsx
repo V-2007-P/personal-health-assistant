@@ -197,91 +197,89 @@ Keep it very brief.`;
         </div>
       </div>
 
-      {/* Voice Input Section */}
-      <div className="voice-input-section" style={isEmergency ? { borderColor: 'rgba(255,59,48,0.5)' } : { position: 'relative' }}>
-        {!user && <FacilityLock onLoginRequest={onLoginRequest} featureName="Voice Intelligence" />}
-        <div className="mic-btn" style={isEmergency ? { background: 'linear-gradient(135deg, #FF3B30, #ff6b6b)' } : {}}>
-          <Mic size={20} />
-        </div>
-        <div className="waveform">
-          {[...Array(20)].map((_, i) => (
-            <div key={i} className="wave-bar" style={{ 
-              animation: (isLoading || inputValue) ? `waveform ${0.5 + (i * 0.13) % 1}s ease-in-out infinite alternate` : 'none',
-              background: isEmergency ? '#FF3B30' : undefined
-            }}></div>
-          ))}
-        </div>
-        <input 
-          ref={inputRef}
-          type="text" 
-          className="input-placeholder" 
-          placeholder={isLoading ? "AI is processing..." : "Type your problem or speak..."}
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (!user) { e.preventDefault(); onLoginRequest(); return; }
-            if (e.key === 'Enter' && !isLoading) handleSend();
-          }}
-          disabled={isLoading}
-          onClick={() => { if (!user) onLoginRequest(); }}
-        />
-        <div className="send-btn" onClick={!isLoading ? handleSend : undefined} style={{ background: isEmergency ? '#FF3B30' : (isLoading ? '#A0A5C0' : undefined), cursor: isLoading ? 'not-allowed' : 'pointer' }}>
-          <Send size={18} />
-        </div>
-      </div>
+      {/* === All Interactive Sections — Gated for guests === */}
+      <div style={{ position: 'relative' }}>
+        {!user && <FacilityLock onLoginRequest={onLoginRequest} featureName="SafeMind AI Features" />}
 
-      {/* Quick Actions */}
-      <div style={{ marginTop: '4px', marginBottom: '4px', fontSize: '14px', fontWeight: 700, color: '#2D3142' }}>Quick Actions</div>
-      <div className="quick-actions">
-        <div className="action-card" onClick={() => !isLoading && handleQuickAction('emergency')} style={{cursor: isLoading ? 'not-allowed' : 'pointer', opacity: isLoading ? 0.6 : 1}}>
-          <div className="action-icon-wrapper icon-wrapper-red">
-            <AlertTriangle size={20} />
+        {/* Voice Input Section */}
+        <div className="voice-input-section" style={isEmergency ? { borderColor: 'rgba(255,59,48,0.5)' } : {}}>
+          <div className="mic-btn" style={isEmergency ? { background: 'linear-gradient(135deg, #FF3B30, #ff6b6b)' } : {}}>
+            <Mic size={20} />
           </div>
-          <div className="action-text">
-            <div className="action-title">Emergency SOS</div>
-            <div className="action-subtitle">Get immediate help</div>
+          <div className="waveform">
+            {[...Array(20)].map((_, i) => (
+              <div key={i} className="wave-bar" style={{ 
+                animation: (isLoading || inputValue) ? `waveform ${0.5 + (i * 0.13) % 1}s ease-in-out infinite alternate` : 'none',
+                background: isEmergency ? '#FF3B30' : undefined
+              }}></div>
+            ))}
           </div>
-          <ArrowRight size={14} className="action-arrow" color="#FF3B30" />
+          <input 
+            ref={inputRef}
+            type="text" 
+            className="input-placeholder" 
+            placeholder={isLoading ? "AI is processing..." : "Type your problem or speak..."}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && !isLoading && handleSend()}
+            disabled={isLoading || !user}
+          />
+          <div className="send-btn" onClick={!isLoading ? handleSend : undefined} style={{ background: isEmergency ? '#FF3B30' : (isLoading ? '#A0A5C0' : undefined), cursor: isLoading ? 'not-allowed' : 'pointer' }}>
+            <Send size={18} />
+          </div>
         </div>
 
-        <div className="action-card" onClick={() => !isLoading && handleQuickAction('health')} style={{cursor: isLoading ? 'not-allowed' : 'pointer', opacity: isLoading ? 0.6 : 1}}>
-          <div className="action-icon-wrapper icon-wrapper-blue">
-            <HeartPulse size={20} />
+        {/* Quick Actions */}
+        <div style={{ marginTop: '4px', marginBottom: '4px', fontSize: '14px', fontWeight: 700, color: '#2D3142' }}>Quick Actions</div>
+        <div className="quick-actions">
+          <div className="action-card" onClick={() => !isLoading && handleQuickAction('emergency')} style={{cursor: isLoading ? 'not-allowed' : 'pointer', opacity: isLoading ? 0.6 : 1}}>
+            <div className="action-icon-wrapper icon-wrapper-red">
+              <AlertTriangle size={20} />
+            </div>
+            <div className="action-text">
+              <div className="action-title">Emergency SOS</div>
+              <div className="action-subtitle">Get immediate help</div>
+            </div>
+            <ArrowRight size={14} className="action-arrow" color="#FF3B30" />
           </div>
-          <div className="action-text">
-            <div className="action-title">Health Assistant</div>
-            <div className="action-subtitle">Medical guidance</div>
+
+          <div className="action-card" onClick={() => !isLoading && handleQuickAction('health')} style={{cursor: isLoading ? 'not-allowed' : 'pointer', opacity: isLoading ? 0.6 : 1}}>
+            <div className="action-icon-wrapper icon-wrapper-blue">
+              <HeartPulse size={20} />
+            </div>
+            <div className="action-text">
+              <div className="action-title">Health Assistant</div>
+              <div className="action-subtitle">Medical guidance</div>
+            </div>
+            <ArrowRight size={14} className="action-arrow" color="#007AFF" />
           </div>
-          <ArrowRight size={14} className="action-arrow" color="#007AFF" />
+
+          <div className="action-card" onClick={() => !isLoading && handleQuickAction('location')} style={{cursor: isLoading ? 'not-allowed' : 'pointer', opacity: isLoading ? 0.6 : 1}}>
+            <div className="action-icon-wrapper icon-wrapper-green">
+              <MapPin size={20} />
+            </div>
+            <div className="action-text">
+              <div className="action-title">Share Location</div>
+              <div className="action-subtitle">Send your location</div>
+            </div>
+            <ArrowRight size={14} className="action-arrow" color="#34C759" />
+          </div>
+
+          <div className="action-card" onClick={() => !isLoading && handleQuickAction('translate')} style={{cursor: isLoading ? 'not-allowed' : 'pointer', opacity: isLoading ? 0.6 : 1}}>
+            <div className="action-icon-wrapper icon-wrapper-purple">
+              <Languages size={20} />
+            </div>
+            <div className="action-text">
+              <div className="action-title">Translate</div>
+              <div className="action-subtitle">Multi-language support</div>
+            </div>
+            <ArrowRight size={14} className="action-arrow" color="#8A2BE2" />
+          </div>
         </div>
 
-        <div className="action-card" onClick={() => !isLoading && handleQuickAction('location')} style={{cursor: isLoading ? 'not-allowed' : 'pointer', opacity: isLoading ? 0.6 : 1}}>
-          <div className="action-icon-wrapper icon-wrapper-green">
-            <MapPin size={20} />
-          </div>
-          <div className="action-text">
-            <div className="action-title">Share Location</div>
-            <div className="action-subtitle">Send your location</div>
-          </div>
-          <ArrowRight size={14} className="action-arrow" color="#34C759" />
-        </div>
-
-        <div className="action-card" onClick={() => !isLoading && handleQuickAction('translate')} style={{cursor: isLoading ? 'not-allowed' : 'pointer', opacity: isLoading ? 0.6 : 1}}>
-          <div className="action-icon-wrapper icon-wrapper-purple">
-            <Languages size={20} />
-          </div>
-          <div className="action-text">
-            <div className="action-title">Translate</div>
-            <div className="action-subtitle">Multi-language support</div>
-          </div>
-          <ArrowRight size={14} className="action-arrow" color="#8A2BE2" />
-        </div>
-      </div>
-
-      {/* AI Response Section */}
-      <div className="ai-response-card" style={isEmergency ? { borderColor: 'rgba(255,59,48,0.5)', background: 'rgba(255,59,48,0.05)' } : { position: 'relative' }}>
-        {!user && <FacilityLock onLoginRequest={onLoginRequest} featureName="AI Analysis" />}
-        <div className="ai-response-header">
+        {/* AI Response Section */}
+        <div className="ai-response-card" style={isEmergency ? { borderColor: 'rgba(255,59,48,0.5)', background: 'rgba(255,59,48,0.05)' } : {}}>
+          <div className="ai-response-header">
           <div className="ai-response-title" style={isEmergency ? {color: '#FF3B30'} : {}}>{response.title}</div>
           <div className="ai-badge" style={isEmergency ? {background: 'rgba(255,59,48,0.1)', color: '#FF3B30'} : {}}>
             {isLoading ? "Processing..." : <><Bot size={12} /> Gemma 3</>}
@@ -352,6 +350,7 @@ Keep it very brief.`;
             <div className="shield-platform" style={{ width: '80px', height: '26px', bottom: '6px', borderColor: isEmergency ? 'rgba(255,59,48,0.3)' : undefined }}></div>
             <Shield size={80} className="floating-shield" strokeWidth={1} style={isEmergency ? {color: '#FF3B30', filter: 'drop-shadow(0 0 15px rgba(255,59,48,0.5))'} : {}} />
           </div>
+        </div>
         </div>
       </div>
       <div ref={responseEndRef} />

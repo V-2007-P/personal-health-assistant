@@ -80,7 +80,11 @@ function App() {
             handleLogin(data);
             setShowLoginModal(false);
           }} 
-          onClose={() => setShowLoginModal(false)}
+          onClose={() => {
+            setShowLoginModal(false);
+            // Force guest back to Dashboard if they close login on a feature page
+            if (!user) setActiveNav('Dashboard');
+          }}
           isModal={true}
         />
       )}
