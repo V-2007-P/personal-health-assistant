@@ -70,7 +70,7 @@ const AuthPage = ({ onLogin, onClose, isModal }) => {
   const stats = [
     { icon: Activity, label: 'Uptime', value: '99.97%' },
     { icon: Globe, label: 'Coverage', value: 'Global' },
-    { icon: Cpu, label: 'AI Model', value: 'Gemma 4' },
+    { icon: Cpu, label: 'AI Model', value: 'Gemma 3' },
     { icon: Zap, label: 'Response', value: '<0.5s' },
   ];
 
@@ -129,7 +129,7 @@ const AuthPage = ({ onLogin, onClose, isModal }) => {
                 <span>SYSTEM ONLINE</span>
               </div>
               <h1 className="visual-title">SafeMind<span className="title-accent"> AI</span></h1>
-              <p className="visual-tagline">Next-generation emergency intelligence platform powered by Google's Gemma 4 neural architecture.</p>
+              <p className="visual-tagline">Next-generation emergency intelligence platform powered by Google's Gemma 3 neural architecture.</p>
             </div>
 
             {/* Stats Row */}
@@ -145,7 +145,7 @@ const AuthPage = ({ onLogin, onClose, isModal }) => {
 
             {/* Features List */}
             <div className="visual-features">
-              {['Real-time Satellite Geolocation', 'Gemma 4 Medical Intelligence', 'Instant Emergency Protocols', 'Encrypted End-to-End'].map((feat, i) => (
+              {['Real-time Satellite Geolocation', 'Gemma 3 Medical Intelligence', 'Instant Emergency Protocols', 'Encrypted End-to-End'].map((feat, i) => (
                 <div key={i} className="v-feature" style={{ animationDelay: `${0.8 + i * 0.12}s` }}>
                   <div className="v-dot" />
                   <span>{feat}</span>

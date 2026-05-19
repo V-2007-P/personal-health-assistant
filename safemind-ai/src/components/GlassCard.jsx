@@ -1,6 +1,3 @@
-import { } from 'react';
-import '../index.css';
-
 const GlassCard = ({ children, className = '', dark = false, style = {} }) => {
   const baseClass = dark ? 'dark-glass' : 'glass';
   return (

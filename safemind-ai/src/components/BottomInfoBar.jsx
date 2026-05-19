@@ -1,4 +1,3 @@
-import { } from 'react';
 import { Bot, Globe, ShieldCheck, Zap } from 'lucide-react';
 import './BottomInfoBar.css';
 

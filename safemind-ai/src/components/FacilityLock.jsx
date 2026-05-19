@@ -1,4 +1,3 @@
-import { } from 'react';
 import { Lock, Shield, ArrowRight } from 'lucide-react';
 import './FacilityLock.css';
 

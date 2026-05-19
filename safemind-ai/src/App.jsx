@@ -10,7 +10,7 @@ import HealthAssistantPage from './pages/HealthAssistantPage';
 import LocationTrackerPage from './pages/LocationTrackerPage';
 import TranslatePage from './pages/TranslatePage';
 import AuthPage from './pages/AuthPage';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -95,11 +95,9 @@ function App() {
           onLoginRequest={() => setShowLoginModal(true)} 
           onDummyLogin={() => {
             handleLogin({ name: 'Aditya (Demo)', email: 'demo@safemind.ai' });
-            import('react-hot-toast').then(({ default: toast }) => {
-              toast.success('🛡️ Dummy Authentication successful.', {
-                style: { background: '#1a1a2e', color: '#fff', border: '1px solid rgba(138,43,226,0.3)' },
-                duration: 3000
-              });
+            toast.success('🛡️ Welcome! You are logged in as Demo user.', {
+              style: { background: '#1a1a2e', color: '#fff', border: '1px solid rgba(138,43,226,0.3)' },
+              duration: 3000
             });
           }}
         />

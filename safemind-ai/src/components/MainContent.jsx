@@ -179,11 +179,11 @@ Keep it very brief.`;
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-title">
-              {user ? `Good Evening, ${user.name}! 👋` : "Welcome to SafeMind AI 👋"}
+              {user ? `${new Date().getHours() < 12 ? 'Good Morning' : new Date().getHours() < 17 ? 'Good Afternoon' : 'Good Evening'}, ${user.name}! 👋` : "Welcome to SafeMind AI 👋"}
             </h1>
             <p className="hero-subtitle">I'm your AI emergency assistant. How can I help you today?</p>
             <div className="pills-container">
-              <span className="pill pill-purple"><Cpu size={14} /> AI Model: Gemma 4</span>
+              <span className="pill pill-purple"><Cpu size={14} /> AI Model: Gemma 3</span>
               <span className="pill pill-blue"><Activity size={14} /> Accuracy: 98.7%</span>
               <span className="pill pill-green"><CheckCircle2 size={14} /> Response: 1.2s</span>
             </div>
@@ -278,7 +278,7 @@ Keep it very brief.`;
         <div className="ai-response-header">
           <div className="ai-response-title" style={isEmergency ? {color: '#FF3B30'} : {}}>{response.title}</div>
           <div className="ai-badge" style={isEmergency ? {background: 'rgba(255,59,48,0.1)', color: '#FF3B30'} : {}}>
-            {isLoading ? "Processing..." : <><Bot size={12} /> Gemma 4</>}
+            {isLoading ? "Processing..." : <><Bot size={12} /> Gemma 3</>}
           </div>
         </div>
         <div className="response-content">

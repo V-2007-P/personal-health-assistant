@@ -55,6 +55,9 @@
 }
 
 .nav-login-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background: linear-gradient(135deg, #8A2BE2, #E056FD);
   color: white;
   border: none;
@@ -73,6 +76,42 @@
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
   filter: brightness(1.1);
+}
+
+.nav-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 6px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.nav-user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2D3142;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .nav-user-info {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .nav-user-name {
+  color: #E0E0F0;
 }
 
 .light-toggle {

@@ -1,4 +1,3 @@
-import { } from 'react';
 import { Shield, LayoutDashboard, ClipboardList, HeartPulse, MapPin, Languages, Bell, ShieldCheck, ChevronDown, AlertTriangle } from 'lucide-react';
 import './Sidebar.css';
 
@@ -36,7 +35,7 @@ const Sidebar = ({ activeNav, setActiveNav, isEmergency, user, onLogout, onLogin
                 data-label={item.id}
               >
                 <item.icon size={18} className="nav-icon" />
-                <span className="nav-label">{item.id === 'Health Assistant' ? 'Health Assistant' : item.id === 'Location Tracker' ? 'Location Tracker' : item.id === 'Incident Reports' ? 'Incident Reports' : item.label}</span>
+                <span className="nav-label">{item.id}</span>
                 {item.badge && <span className="sos-badge">{item.badge}</span>}
               </div>
             ))}
@@ -62,7 +61,7 @@ const Sidebar = ({ activeNav, setActiveNav, isEmergency, user, onLogout, onLogin
                 <span>AI Model</span>
               </div>
               <div className="status-row">
-                <span className={isEmergency ? "val-red" : "val-purple"} style={isEmergency ? {color: '#FF3B30', fontWeight: 600} : {}}>Gemma 4 (Google)</span>
+                <span className={isEmergency ? "val-red" : "val-purple"} style={isEmergency ? {color: '#FF3B30', fontWeight: 600} : {}}>Gemma 3 (Google)</span>
               </div>
               <div className="status-row" style={{ marginTop: '8px' }}>
                 <span>Response Time</span>

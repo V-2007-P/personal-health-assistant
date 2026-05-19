@@ -1,8 +1,15 @@
-import { } from 'react';
-import { Search, Sun, Moon, Bell } from 'lucide-react';
+import { Search, Sun, Moon, Bell, LogOut, User } from 'lucide-react';
 import './TopNavbar.css';
 
 const TopNavbar = ({ isDark, toggleTheme, user, onLoginRequest, onDummyLogin }) => {
+
+  const getGreeting = () => {
+    const h = new Date().getHours();
+    if (h < 12) return 'Good Morning';
+    if (h < 17) return 'Good Afternoon';
+    return 'Good Evening';
+  };
+
   return (
     <div className="top-nav">
       <div className="search-bar">
@@ -10,9 +17,19 @@ const TopNavbar = ({ isDark, toggleTheme, user, onLoginRequest, onDummyLogin }) 
         <input type="text" placeholder="Search anything..." />
       </div>
       <div className="nav-actions">
-        {!user && (
+        {user ? (
+          <div className="nav-user-info">
+            <img
+              src={`https://ui-avatars.com/api/?name=${user.name}&background=8A2BE2&color=fff&size=32`}
+              alt={user.name}
+              className="nav-avatar"
+            />
+            <span className="nav-user-name">{getGreeting()}, {user.name.split(' ')[0]}</span>
+          </div>
+        ) : (
           <button className="nav-login-btn" onClick={onDummyLogin}>
-            Dummy Login
+            <User size={14} />
+            Quick Login
           </button>
         )}
         <button
@@ -33,5 +50,3 @@ const TopNavbar = ({ isDark, toggleTheme, user, onLoginRequest, onDummyLogin }) 
 };
 
 export default TopNavbar;
-
-
