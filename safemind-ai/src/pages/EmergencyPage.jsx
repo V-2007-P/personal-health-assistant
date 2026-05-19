@@ -31,6 +31,11 @@ const EmergencyPage = ({ isEmergency, setIsEmergency, user, onLoginRequest }) =>
     }, () => setLocationText('Location access denied'));
   }, []);
 
+  // Auto-pop login for guests
+  useEffect(() => {
+    if (!user && onLoginRequest) onLoginRequest();
+  }, []);
+
   const callNumber = (number, name) => {
     window.location.assign(`tel:${number}`);
     toast.success(`Calling ${name} (${number})...`, { duration: 3000 });

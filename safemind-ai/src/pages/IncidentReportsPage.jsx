@@ -55,6 +55,11 @@ const IncidentReportsPage = ({ user, onLoginRequest }) => {
   // Persist on every change
   useEffect(() => { saveReports(reports); }, [reports]);
 
+  // Auto-pop login for guests
+  useEffect(() => {
+    if (!user && onLoginRequest) onLoginRequest();
+  }, []);
+
   // ── helpers ──────────────────────────────────
   const typeObj = (id) => INCIDENT_TYPES.find(t => t.id === id) || INCIDENT_TYPES[4];
 

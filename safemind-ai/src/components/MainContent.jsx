@@ -140,10 +140,12 @@ Keep it very brief.`;
   };
 
   const handleSend = () => {
+    if (!user) { onLoginRequest(); return; }
     sendPromptToBackend(inputValue);
   };
 
   const handleQuickAction = (type) => {
+    if (!user) { onLoginRequest(); return; }
     if (type === 'emergency') {
       if (setIsEmergency) setIsEmergency(true);
       toast.success("Emergency SOS Activated!", { style: { background: '#FF3B30', color: 'white' } });
@@ -216,8 +218,12 @@ Keep it very brief.`;
           placeholder={isLoading ? "AI is processing..." : "Type your problem or speak..."}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && !isLoading && handleSend()}
+          onKeyDown={(e) => {
+            if (!user) { e.preventDefault(); onLoginRequest(); return; }
+            if (e.key === 'Enter' && !isLoading) handleSend();
+          }}
           disabled={isLoading}
+          onClick={() => { if (!user) onLoginRequest(); }}
         />
         <div className="send-btn" onClick={!isLoading ? handleSend : undefined} style={{ background: isEmergency ? '#FF3B30' : (isLoading ? '#A0A5C0' : undefined), cursor: isLoading ? 'not-allowed' : 'pointer' }}>
           <Send size={18} />

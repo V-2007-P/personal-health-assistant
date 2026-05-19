@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import TopNavbar from './components/TopNavbar';
 import MainContent from './components/MainContent';
@@ -29,6 +29,13 @@ function App() {
   const [isEmergency, setIsEmergency] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // Auto-pop login modal when guest user navigates to any feature page
+  useEffect(() => {
+    if (!user && activeNav !== 'Dashboard') {
+      setShowLoginModal(true);
+    }
+  }, [activeNav, user]);
 
   const handleLogin = (userData) => {
     setUser(userData);

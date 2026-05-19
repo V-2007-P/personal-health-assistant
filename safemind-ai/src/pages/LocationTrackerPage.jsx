@@ -51,6 +51,11 @@ const LocationTrackerPage = ({ user, onLoginRequest }) => {
     setTimeout(fetchLocation, 0);
   }, []);
 
+  // Auto-pop login for guests
+  useEffect(() => {
+    if (!user && onLoginRequest) onLoginRequest();
+  }, []);
+
   const copyCoords = () => {
     if (!location) return;
     navigator.clipboard.writeText(`${location[0].toFixed(6)}, ${location[1].toFixed(6)}`);

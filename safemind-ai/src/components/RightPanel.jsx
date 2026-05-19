@@ -22,7 +22,7 @@ const MapUpdater = ({ center }) => {
   return null;
 };
 
-const RightPanel = ({ isEmergency, setIsEmergency }) => {
+const RightPanel = ({ isEmergency, setIsEmergency, user, onLoginRequest }) => {
   const [showModal, setShowModal] = useState(false);
   const [countdown, setCountdown] = useState(5);
   
@@ -113,6 +113,7 @@ const RightPanel = ({ isEmergency, setIsEmergency }) => {
   }, [showModal, countdown, setIsEmergency]);
 
   const handleSOSClick = () => {
+    if (!user) { onLoginRequest(); return; }
     if (isEmergency) {
       setIsEmergency(false);
       return;

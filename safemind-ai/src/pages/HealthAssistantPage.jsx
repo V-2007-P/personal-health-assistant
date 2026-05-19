@@ -27,6 +27,11 @@ const HealthAssistantPage = ({ user, onLoginRequest }) => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
+  // Auto-pop login for guests
+  useEffect(() => {
+    if (!user && onLoginRequest) onLoginRequest();
+  }, []);
+
   const sendMessage = async (overridePrompt) => {
     const prompt = (overridePrompt || inputValue).trim();
     if (!prompt || isLoading) return;

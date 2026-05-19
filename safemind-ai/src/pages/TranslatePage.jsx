@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Languages, Send, ArrowRight, Globe } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './TranslatePage.css';
@@ -21,6 +21,11 @@ const TranslatePage = ({ user, onLoginRequest }) => {
   const [targetLang, setTargetLang] = useState('Spanish');
   const [translation, setTranslation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // Auto-pop login for guests
+  useEffect(() => {
+    if (!user && onLoginRequest) onLoginRequest();
+  }, []);
 
   const translate = async (overrideText) => {
     const text = (overrideText || inputText).trim();
