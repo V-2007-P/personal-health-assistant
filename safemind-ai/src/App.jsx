@@ -13,17 +13,7 @@ import AuthPage from './pages/AuthPage';
 import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
-  const [user, setUser] = useState(() => {
-    try {
-      const savedUser = localStorage.getItem('safemind_user');
-      if (savedUser && savedUser !== 'undefined') {
-        return JSON.parse(savedUser);
-      }
-    } catch {
-      localStorage.removeItem('safemind_user');
-    }
-    return null;
-  });
+  const [user, setUser] = useState(null);
 
   const [activeNav, setActiveNav] = useState('Dashboard');
   const [isEmergency, setIsEmergency] = useState(false);
@@ -39,12 +29,10 @@ function App() {
 
   const handleLogin = (userData) => {
     setUser(userData);
-    localStorage.setItem('safemind_user', JSON.stringify(userData));
   };
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('safemind_user');
   };
 
   const toggleTheme = () => {
