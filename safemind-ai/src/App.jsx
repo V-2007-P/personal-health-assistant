@@ -66,15 +66,15 @@ function App() {
     <div className={`dashboard-container ${!user ? 'demo-mode' : ''}`}>
       <Toaster position="top-right" />
       
-      {/* Show AuthPage as a Modal if not logged in or explicitly requested */}
-      {(!user || showLoginModal) && (
+      {/* Show AuthPage only when explicitly requested via Login button */}
+      {showLoginModal && (
         <AuthPage 
           onLogin={(data) => {
             handleLogin(data);
             setShowLoginModal(false);
           }} 
-          onClose={() => user && setShowLoginModal(false)}
-          isModal={!!user}
+          onClose={() => setShowLoginModal(false)}
+          isModal={true}
         />
       )}
 
