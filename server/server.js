@@ -10,19 +10,37 @@
 // Port:       5000
 // ============================================
 
+// Load environment variables from .env file
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 
 // ============================================
-// Initialize Express App
+// Initialize Express App and AI Clients
 // ============================================
 const app = express();
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+// Decide which model to use depending on local or cloud mode
+const AI_MODEL = process.env.AI_MODEL || (GEMINI_API_KEY ? 'gemma-4-31b-it' : 'gemma3');
 
 // Ollama API endpoint (runs locally)
-const OLLAMA_API_URL = 'http://localhost:11434/api/generate';
-const AI_MODEL = 'gemma3';
+const OLLAMA_API_URL = process.env.OLLAMA_API_URL || 'http://localhost:11434/api/generate';
+
+// Initialize Google Gen AI client if API key is provided
+let aiClient = null;
+if (GEMINI_API_KEY) {
+  try {
+    const { GoogleGenAI } = require('@google/genai');
+    aiClient = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+  } catch (err) {
+    console.error('❌ Failed to initialize Google Gen AI SDK:', err.message);
+  }
+}
 
 // ============================================
 // Middleware
@@ -79,22 +97,31 @@ app.post('/chat', async (req, res) => {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('📩 New message received:');
     console.log(`   "${prompt}"`);
-    console.log('⏳ Sending to Gemma 3 via Ollama...');
 
-    // Step 3: Send the prompt to Ollama's local API
-    const ollamaResponse = await axios.post(OLLAMA_API_URL, {
-      model: AI_MODEL,
-      prompt: prompt,
-      stream: false
-    }, {
-      // Increased timeout to 5 minutes for slower local machines/first runs
-      timeout: 300000 
-    });
+    let aiReply = '';
 
-    // Step 4: Extract the AI's response text
-    const aiReply = ollamaResponse.data.response;
+    if (aiClient) {
+      console.log(`⏳ Sending to Google Gen AI (${AI_MODEL})...`);
+      const response = await aiClient.models.generateContent({
+        model: AI_MODEL,
+        contents: prompt,
+      });
+      aiReply = response.text;
+    } else {
+      console.log(`⏳ Sending to local Ollama (${AI_MODEL})...`);
+      // Send the prompt to Ollama's local API
+      const ollamaResponse = await axios.post(OLLAMA_API_URL, {
+        model: AI_MODEL,
+        prompt: prompt,
+        stream: false
+      }, {
+        // Increased timeout to 5 minutes for slower local machines/first runs
+        timeout: 300000 
+      });
+      aiReply = ollamaResponse.data.response;
+    }
 
-    console.log('✅ Gemma 3 responded successfully');
+    console.log('✅ AI responded successfully');
     console.log(`   Response length: ${aiReply.length} characters`);
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
@@ -159,8 +186,11 @@ app.listen(PORT, () => {
   console.log('  🛡️  SafeMind AI Backend Server');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.log(`  🚀 Server:  http://localhost:${PORT}`);
-  console.log(`  🤖 Model:   ${AI_MODEL} (via Ollama)`);
-  console.log(`  📡 Ollama:  ${OLLAMA_API_URL}`);
+  console.log(`  🤖 Mode:    ${GEMINI_API_KEY ? 'Google Gen AI (Cloud)' : 'Ollama (Local)'}`);
+  console.log(`  🤖 Model:   ${AI_MODEL}`);
+  if (!GEMINI_API_KEY) {
+    console.log(`  📡 Ollama:  ${OLLAMA_API_URL}`);
+  }
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.log('  Waiting for messages...');
   console.log('');

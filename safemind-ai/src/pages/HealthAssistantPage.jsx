@@ -50,7 +50,7 @@ const HealthAssistantPage = ({ user, onLoginRequest }) => {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 300000);
 
-      const res = await fetch('http://localhost:5001/chat', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: systemPrompt }),

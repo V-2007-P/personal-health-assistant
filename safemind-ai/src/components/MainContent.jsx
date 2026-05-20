@@ -90,7 +90,7 @@ Then 2-3 short bullet points (starting with - ).
 Then 1 short closing sentence. 
 Keep it very brief.`;
 
-      const res = await fetch('http://localhost:5001/chat', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: structuredPrompt }),
